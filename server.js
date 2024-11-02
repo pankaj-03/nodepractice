@@ -13,7 +13,7 @@ app.get('/' , (req,res)=>{
 })
 
 
-const personRoutes= require('./routes/PersonRoutes.js');
+const personRoutes= require('./routes/personRoutes.js');
 app.use('/person' , personRoutes);
 
 const menuRoutes = require('./routes/menuRoutes.js');
