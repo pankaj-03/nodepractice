@@ -7,7 +7,15 @@ const personSchema = new mongoose.Schema({
     mobile: {type : String , required: true},
     email: {type: String , unique: true , required: true},
     address: {type: String , required: true},
-    salary: {type: String , required: true}
+    salary: {type: String , required: true},
+    username : {
+        type : String,
+        required: true,
+    },
+    password : {
+        type: String,
+        required: true
+    }
 })
 
 

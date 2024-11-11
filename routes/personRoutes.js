@@ -6,6 +6,7 @@ const Person = require('../models/Person');
 router.get('/' , async (req , res) => {
       
     try{
+        console.log("HELLO");
        const staffInfo = await Person.find();
        console.log(staffInfo);
        res.status(200).json(staffInfo)
