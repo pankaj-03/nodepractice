@@ -11,13 +11,6 @@ app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 3000;
 
-
-//Middleware 
-// const logRequest = (req , res , next)=>{
-//     console.log(`[${new Date().toLocaleString()}] Request Made to : ${req.originalUrl}`);
-//     next();
-// }
-
 app.use(passport.initialize());
 
 passport.use(new LocalStrategy(async (username , password , done)=>{
@@ -29,8 +22,9 @@ passport.use(new LocalStrategy(async (username , password , done)=>{
       if(!user){
         return done(null , false  , {message: 'Incorrect username'});
       }
-
-      const isPasswordMatch = user.password === password;
+      
+      const isPasswordMatch = user.comparePassword(password);
+    
 
       if(isPasswordMatch){
         return done(null , user , {message: 'Password Correct'});
@@ -49,6 +43,7 @@ passport.use(new LocalStrategy(async (username , password , done)=>{
 
 
 
+
 app.get('/' , (req ,  res)=>{
   res.send("Welcome to Udhupiwala");
 })
@@ -56,7 +51,7 @@ app.get('/' , (req ,  res)=>{
 //MiddleWare
 const authMiddleWare = passport.authenticate('local'  , {session : false});
 const personRoutes= require('./routes/personRoutes.js');
-app.use('/person' , authMiddleWare , personRoutes);
+app.use('/person', personRoutes);
 
 const menuRoutes = require('./routes/menuRoutes.js');
 app.use('/menu' ,  menuRoutes);
